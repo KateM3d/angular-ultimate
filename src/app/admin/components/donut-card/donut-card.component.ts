@@ -7,7 +7,9 @@ import { Donut } from '../../models/donut.model';
   template: `
     <div
       class="donut-card"
-      [style.border]="donut.promo ? '2px solid black' : 'none'"
+      [ngClass]="{
+        'donut-card-promo': donut.promo
+      }"
     >
       <img
         src="/assets/img/{{ donut.icon }}.svg"
@@ -17,7 +19,9 @@ import { Donut } from '../../models/donut.model';
       <div>
         <p class="donut-card-name">{{ donut.name }}</p>
 
-        <p class="donut-card-price">{{ donut.price }}</p>
+        <p class="donut-card-price">
+          {{ donut.price / 100 | currency : 'CAD' }}
+        </p>
       </div>
     </div>
   `,
@@ -46,6 +50,9 @@ import { Donut } from '../../models/donut.model';
         &-icon {
           width: 50px;
           margin-right: 10x;
+        }
+        &-promo {
+          border-radius: 1px solid red;
         }
       }
     `,
