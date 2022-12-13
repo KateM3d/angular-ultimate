@@ -18,7 +18,12 @@ import { Donut } from '../../models/donut.model';
       />
       <div>
         <p class="donut-card-name">{{ donut.name }}</p>
-
+        <ng-container [ngSwitch]="donut.promo" ]>
+          <span *ngSwitchCase="'new'" class="donut-card-label">NEW</span>
+          <span *ngSwitchCase="'limited'" class="donut-card-label"
+            >limited</span
+          >
+        </ng-container>
         <p class="donut-card-price">
           {{ donut.price / 100 | currency : 'CAD' }}
         </p>
@@ -53,6 +58,13 @@ import { Donut } from '../../models/donut.model';
         }
         &-promo {
           border-radius: 1px solid red;
+        }
+        &-label {
+          border: 1px solid red;
+          border-radius: 4px;
+          margin-left: 15px;
+          font-size: 12px;
+          color: red;
         }
       }
     `,
