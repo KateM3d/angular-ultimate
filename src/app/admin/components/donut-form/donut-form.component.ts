@@ -5,7 +5,7 @@ import { Donut } from '../../models/donut.model';
 @Component({
   selector: 'app-donut-form',
   template: `
-    <form class="donut-form" (ngSubmit)="handleSubmit(form)" #form="ngForm">
+    <form class="donut-form" #form="ngForm">
       <label>
         <span>Name</span>
         <input
@@ -108,7 +108,20 @@ import { Donut } from '../../models/donut.model';
           </div>
         </ng-container>
       </label>
-      <button type="submit" class="btn btn--green">Create</button>
+      <button type="button" class="btn btn--green" (click)="handleCreate(form)">
+        Create
+      </button>
+      <button type="button" class="btn btn--green" (click)="handleDelete(form)">
+        Delete
+      </button>
+      <button
+        type="button"
+        class="btn btn--green"
+        [disabled]="form.untouched"
+        (click)="handleUpdate(form)"
+      >
+        Update
+      </button>
       <button type="button" class="btn btn--grey" (click)="form.resetForm()">
         Reset form
       </button>
@@ -116,9 +129,6 @@ import { Donut } from '../../models/donut.model';
       <div class="donut-form-working" *ngIf="form.valid && form.submitted">
         Working....
       </div>
-
-      <pre>{{ donut | json }}</pre>
-      <pre>{{ form.value | json }}</pre>
     </form>
   `,
   styles: [
@@ -153,7 +163,10 @@ import { Donut } from '../../models/donut.model';
 })
 export class DonutFormComponent {
   @Input() donut!: Donut;
+
   @Output() create = new EventEmitter<Donut>();
+  @Output() update = new EventEmitter<Donut>();
+  @Output() delete = new EventEmitter<Donut>();
 
   icons: string[] = [
     'caramel-swirl',
@@ -165,12 +178,25 @@ export class DonutFormComponent {
     'zesty-lemon',
   ];
 
-  handleSubmit(form: NgForm) {
+  handleCreate(form: NgForm) {
     if (form.valid) {
       this.create.emit(form.value);
     } else {
       form.form.markAllAsTouched();
-      console.log('invalid');
+    }
+  }
+
+  handleUpdate(form: NgForm) {
+    if (form.valid) {
+      this.update.emit({ id: this.donut.id, ...form.value });
+    } else {
+      form.form.markAllAsTouched();
+    }
+  }
+
+  handleDelete(form: NgForm) {
+    if (confirm(`Really delete ${this.donut.name}?`)) {
+      this.delete.emit({ ...this.donut });
     }
   }
 }
