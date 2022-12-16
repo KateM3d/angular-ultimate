@@ -1,14 +1,6 @@
 {
   "donuts": [
     {
-      "id": "123",
-      "name": "Just Chocolate",
-      "icon": "just-chocolate",
-      "price": 199112,
-      "promo": "new",
-      "description": "for the pure chocolate lovers"
-    },
-    {
       "id": "456",
       "name": "Glazed Fudge",
       "icon": "glazed-fudge",
@@ -36,14 +28,6 @@
       "icon": "zesty-lemon",
       "price": 129,
       "description": "delicious lucious lemon"
-    },
-    {
-      "name": "fffffffff",
-      "icon": "strawberry-glaze",
-      "price": 234440,
-      "promo": "limited",
-      "description": "very expensive",
-      "id": "rkporFH"
     }
   ]
 }
