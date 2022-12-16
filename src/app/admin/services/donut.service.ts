@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Donut } from '../models/donut.model';
 import { HttpClient } from '@angular/common/http';
+import { tap, of, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,36 +12,50 @@ export class DonutService {
   constructor(private http: HttpClient) {}
 
   read() {
-    return this.http.get<Donut[]>(`/api/donuts`);
-    // return this.donuts;
+    if (this.donuts.length) {
+      return of(this.donuts);
+    }
+    return this.http
+      .get<Donut[]>(`/api/donuts`)
+      .pipe(tap((donuts) => (this.donuts = donuts)));
   }
 
-  // readOne(id: string) {
-  //   const donut = this.read().find((donut: Donut) => donut.id === id);
-  //   if (donut) {
-  //     return donut;
-  //   }
-  //   return {
-  //     name: '',
-  //     icon: '',
-  //     price: 0,
-  //     description: '',
-  //   };
-  // }
+  readOne(id: string) {
+    return this.read().pipe(
+      map((donuts) => {
+        const donut = donuts.find((donut: Donut) => donut.id === id);
+        if (donut) {
+          return donut;
+        }
+        return {
+          name: '',
+          icon: '',
+          price: 0,
+          description: '',
+        };
+      })
+    );
+  }
 
   create(payload: Donut) {
-    this.donuts = [...this.donuts, payload];
-    console.log(this.donuts);
+    return this.http.post<Donut>(`/api/donuts`, payload).pipe(
+      tap((donut) => {
+        this.donuts = [...this.donuts, payload];
+      })
+    );
   }
 
   update(payload: Donut) {
-    this.donuts = this.donuts.map((donut: Donut) => {
-      if (donut.id === payload.id) {
-        return payload;
-      }
-      return donut;
-    });
-    console.log(this.donuts);
+    return this.http.put<Donut>(`/api/donuts/${payload.id}`, payload).pipe(
+      tap((donut) => {
+        this.donuts = this.donuts.map((item: Donut) => {
+          if (item.id === donut.id) {
+            return donut;
+          }
+          return item;
+        });
+      })
+    );
   }
 
   delete(payload: Donut) {
