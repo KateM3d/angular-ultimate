@@ -30,11 +30,20 @@
       "description": "delicious lucious lemon"
     },
     {
-      "name": "testing",
+      "name": "Just chocolate",
       "icon": "just-chocolate",
-      "price": 233,
-      "description": "dfdfrg",
-      "id": "89mHuY-"
+      "price": 432,
+      "promo": "limited",
+      "description": "limited edition",
+      "id": "5iUK0e1"
+    },
+    {
+      "name": "wwweewrerferf",
+      "icon": "sour-supreme",
+      "price": 444444,
+      "promo": "new",
+      "description": "refggg",
+      "id": "o3qdeVN"
     }
   ]
 }
