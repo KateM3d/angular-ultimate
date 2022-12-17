@@ -3,7 +3,6 @@ import { Donut } from '../models/donut.model';
 import {
   HttpClient,
   HttpErrorResponse,
-  HttpHandler,
   HttpHeaders,
 } from '@angular/common/http';
 import {
@@ -18,9 +17,7 @@ import {
   take,
 } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class DonutService {
   private donuts: Donut[] = [];
 
