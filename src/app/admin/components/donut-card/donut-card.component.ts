@@ -1,8 +1,17 @@
+import {
+  CommonModule,
+  CurrencyPipe,
+  NgSwitch,
+  NgSwitchCase,
+} from '@angular/common';
 import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { Donut } from '../../models/donut.model';
 
 @Component({
   selector: 'app-donut-card',
+  standalone: true,
+  imports: [RouterModule, CommonModule, NgSwitch, NgSwitchCase, CurrencyPipe],
   encapsulation: ViewEncapsulation.Emulated,
   template: `
     <a
