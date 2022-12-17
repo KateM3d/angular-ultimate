@@ -31,7 +31,12 @@ export class DonutSingleComponent implements OnInit {
   }
 
   onUpdate(donut: Donut) {
-    this.donutService.update(donut).subscribe(() => console.log('updated!'));
+    this.donutService
+      .update(donut)
+      .subscribe({
+        next: () => console.log('updated!'),
+        error: (err) => console.log('onUpdate error: ', err),
+      });
   }
 
   onDelete(donut: Donut) {

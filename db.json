@@ -28,6 +28,13 @@
       "icon": "zesty-lemon",
       "price": 129,
       "description": "delicious lucious lemon"
+    },
+    {
+      "name": "testing",
+      "icon": "just-chocolate",
+      "price": 233,
+      "description": "dfdfrg",
+      "id": "89mHuY-"
     }
   ]
 }
